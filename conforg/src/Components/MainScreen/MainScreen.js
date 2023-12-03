@@ -9,6 +9,9 @@ function MainScreen(){
     const handleLogout = ()=>{
         nav('/')
     }
+    const handleConference = ()=>{
+        nav('/newconference')
+    }
     return(
         <div className='MainScreen'>
             <div className='TopScreen'>
@@ -38,7 +41,7 @@ function MainScreen(){
                     <button type='button' className='LogoutBtn'>Add/Edit article</button>
                     <button type='button' className='LogoutBtn'>Review article</button>
                     <button type='button' className='LogoutBtn'>Delete article</button>
-                    <button type='button' className='LogoutBtn'>Add conference</button>
+                    <button type='button' className='LogoutBtn' onClick={handleConference}>Add conference</button>
             </div>
         </div>
     )

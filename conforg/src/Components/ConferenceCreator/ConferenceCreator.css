@@ -1,0 +1,43 @@
+.CreateConference{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #282c34;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.ConfInputs{
+    width: 50%;
+    padding: 1%;
+    margin:1%;
+}
+.ConferenceButtons{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: center;
+}
+.ConferenceButt{
+    border: 2px solid white;
+    background-color: #282c34;
+    color: white;
+    transition-duration: 0.4s;
+    border-radius: 25px;
+    height: 10vmin;
+    width: 25vmin;
+    margin: 2%;
+    cursor:pointer;
+}
+.Cancel{
+    border: 2px solid #ff0000;
+}
+.Cancel:hover{
+    background-color: #ff0000;
+}
+.Add{
+    border: 2px solid #0ea500;
+}
+.Add:hover{
+    background-color: #0ea500;
+}
