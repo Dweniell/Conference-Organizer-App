@@ -6,6 +6,9 @@ function Register(){
     const handleClickBack = () =>{
         navig(-1)
     }
+    const handleContinue = () =>{
+        navig('/main')
+    }
     return(
         <div className='Login'>
           <header className='Login-header'>
@@ -22,7 +25,7 @@ function Register(){
             </div>
             <div className='lButtons'>
               <button type='button' className='lButtonStyle b2'onClick={handleClickBack}>Cancel</button>
-              <button type='button' className='lButtonStyle b1'>Continue</button>
+              <button type='button' className='lButtonStyle b1'onClick={handleContinue}>Continue</button>
             </div>
           </header>
         </div>

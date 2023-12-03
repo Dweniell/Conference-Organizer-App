@@ -4,6 +4,7 @@ import './index.css';
 import App from './Components/App/App';
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
+import MainScreen from './Components/MainScreen/MainScreen';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,6 +15,7 @@ root.render(
         <Route path='/' element={<App/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/main' element={<MainScreen/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
