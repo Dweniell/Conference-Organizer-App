@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.button{
+  width:200px;
+  height:50px;
+  border-radius:25px;
+  background-color: #282c34;
+  transition-duration: 0.4s;
+  cursor:pointer;
+  margin:2px;
+}
+
+.but1{
+  border:2px solid #FFB000;
+  color:white;
+}
+.but1:hover{
+  background-color: #FFB000;
+  color:#282c34;
+}
+.but2{
+  border:2px solid #00CEFF;
+  color:white;
+}
+.but2:hover{
+  background-color: #00CEFF;
+  color:#282c34;
+}
