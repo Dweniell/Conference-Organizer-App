@@ -1,6 +1,6 @@
 import React from 'react'
 import './MainScreen.css'
-import logo from '../../placeholder.jpg';
+import logo from '../../logo_actual.png';
 import ConferenceTemplate from '../Conference/Conference'
 import { useNavigate } from 'react-router-dom'
 
