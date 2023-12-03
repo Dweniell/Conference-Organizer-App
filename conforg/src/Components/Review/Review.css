@@ -1,0 +1,64 @@
+.Review{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #282c34;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items:flex-start;
+}
+.ReviewUnmod{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items:flex-start;
+}
+.ReviewTitle{
+    height: 18%;
+    width: 40%;
+    margin-left:1%;
+}
+.ReviewContent{
+    height: 34vh;
+    width: 96vw;
+    margin:1%;
+    resize: none;
+}
+.ReviewButt{
+    border: 2px solid white;
+    background-color: #282c34;
+    color: white;
+    transition-duration: 0.4s;
+    border-radius: 25px;
+    height: 10vmin;
+    width: 25vmin;
+    margin: 2%;
+    cursor:pointer;
+}
+.ReviewButtons{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items:flex-end;
+    height:18%;
+    margin:1%;
+}
+.RevCancel{
+    border: 2px solid #ff0000;
+}
+.RevCancel:hover{
+    background-color: #ff0000;
+}
+.RevApprove{
+    border: 2px solid #0ea500;
+}
+.RevApprove:hover{
+    background-color: #0ea500;
+}
+.RevSend{
+    border: 2px solid #fbff00;
+}
+.RevSend:hover{
+    background-color: #fbff00;
+    color:#282c34;
+}

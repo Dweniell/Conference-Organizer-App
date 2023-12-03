@@ -12,6 +12,12 @@ function MainScreen(){
     const handleConference = ()=>{
         nav('/newconference')
     }
+    const handleArticle = () =>{
+        nav('/article')
+    }
+    const handleReview = () =>{
+        nav('/review')
+    }
     return(
         <div className='MainScreen'>
             <div className='TopScreen'>
@@ -38,8 +44,8 @@ function MainScreen(){
             </div>
             <div className='BottomScreen'>
                     <button type='button' className='LogoutBtn'>Join conference</button>
-                    <button type='button' className='LogoutBtn'>Add/Edit article</button>
-                    <button type='button' className='LogoutBtn'>Review article</button>
+                    <button type='button' className='LogoutBtn' onClick={handleArticle}>Add/Edit article</button>
+                    <button type='button' className='LogoutBtn' onClick={handleReview}>Review article</button>
                     <button type='button' className='LogoutBtn'>Delete article</button>
                     <button type='button' className='LogoutBtn' onClick={handleConference}>Add conference</button>
             </div>

@@ -6,6 +6,8 @@ import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import MainScreen from './Components/MainScreen/MainScreen';
 import ConferenceCreator from './Components/ConferenceCreator/ConferenceCreator';
+import Article from './Components/Article/Article';
+import Review from './Components/Review/Review';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +20,8 @@ root.render(
         <Route path='/register' element={<Register/>}/>
         <Route path='/main' element={<MainScreen/>}/>
         <Route path='/newconference' element={<ConferenceCreator/>}/>
+        <Route path='/article' element={<Article/>}/>
+        <Route path='/review' element={<Review/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
