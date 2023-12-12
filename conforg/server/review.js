@@ -10,5 +10,16 @@ class Review{
         this.ReviewerId=ReviewerId;
         this.Approved=Approved;
     }
-
+    editReviewContent(content){
+        this.ReviewContent=content;
+    }
+    getReviewContent(){
+        return this.ReviewContent;
+    }
+    getReviewerId(){
+        return this.ReviewerId;
+    }
+    getApproved(){
+        return this.Approved;
+    }
 }

@@ -16,6 +16,6 @@ class Organizer {
     }
     deleteArticle(ConfId, ArticleId){
         this.Conferences[ConfId].Articles[ArticleId].remove();
-    };
+    }
     
 };

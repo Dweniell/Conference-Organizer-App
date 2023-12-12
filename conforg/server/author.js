@@ -7,5 +7,5 @@ class Author{
         this.Name=Name;
         this.Surname=Surname;
     }
-
+    
 }
