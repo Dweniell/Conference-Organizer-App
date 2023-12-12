@@ -34,3 +34,10 @@ app.post('/validatePassword',(req, res)=>{
     })
 })
 app.listen(3001, ()=>console.log('Listening at port 3001'))
+
+
+
+
+
+
+
