@@ -10,15 +10,17 @@ function Login(){
     const handleContinue = () =>{
         navig('/main')
     }
-    const onFinish = values =>{
-        const {username, password} = values
-        axios.post('https://localhost:3001/validatePassword', {username,password})
+    
+    const onFinish = () =>{
+      const username = document.getElementById('username').value
+      const password = document.getElementById('password').value
+        axios.post('http://localhost:3001/validatePassword', {username,password})
           .then(res=>{
             if(res.data.validation){
-              alert('Password is correct')
+              handleContinue()
             }
             else{
-              alert('Your password is not correct')
+              alert('Invalid username or password')
             }
           })
     }
