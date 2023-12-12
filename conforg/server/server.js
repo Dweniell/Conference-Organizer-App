@@ -34,10 +34,34 @@ app.post('/validatePassword',(req, res)=>{
     })
 })
 app.listen(3001, ()=>console.log('Listening at port 3001'))
+app.post('/create-conference', checkRole('organizer'), (req, res) => {
+    const { id, name, organizer } = req.body;
 
+    const newConference = new Conference(id, name, organizer);
 
+    res.status(201).send({ message: "Conference created successfully", conference: newConference });
+});
 
+app.post('/conference/:conferenceId/add-author', (req, res) => {
+    const conferenceId = req.params.conferenceId;
 
+    const author = req.body.author;
 
+    const conference = getConferenceById(conferenceId);
 
+    conference.addAuthor(author);
 
+    res.status(200).send({ message: "Author added successfully", conference });
+});
+
+app.put('/conference/:conferenceId/update', (req, res) => {
+    const conferenceId = req.params.conferenceId;
+
+    const { newName } = req.body;
+
+    const conference = getConferenceById(conferenceId);
+    
+    conference.updateConferenceDetails(newName);
+
+    res.status(200).send({ message: "Conference updated successfully", conference });
+});
