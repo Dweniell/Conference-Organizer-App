@@ -6,6 +6,7 @@ function Register(){
     const navig = useNavigate()
     const [regUser, setRegUser] = useState('')
     const [regPass, setRegPass] = useState('')
+    const [regRepass, setRepass] = useState('')
     const handleClickBack = () =>{
         navig(-1)
     }
@@ -16,8 +17,12 @@ function Register(){
               alert('Username already exists')
             }
             else{
-              axios.post('http://localhost:3001/registerUser', {user:regUser, pass:regPass, accType:type})
-              handleClickBack()
+              if(regPass!==regRepass){alert('Password does not match')}
+              else if(type==='Z'){alert('Please choose an account type')}
+              else{
+                axios.post('http://localhost:3001/registerUser', {user:regUser, pass:regPass, accType:type})
+                handleClickBack()
+              }
             }
           })
     }
@@ -27,7 +32,7 @@ function Register(){
           <header className='Login-header'>
             <input type='text' placeholder='username' className='inputs' onChange={(e)=>setRegUser(e.target.value)}></input>
             <input type='text' placeholder='password' className='inputs'onChange={(e)=>setRegPass(e.target.value)}></input>
-            <input type='text' placeholder='enter the password again' className='inputs'></input>
+            <input type='text' placeholder='enter the password again' className='inputs' onChange={(e)=>setRepass(e.target.value)}></input>
             <div className='rButtons'>
                 <input type='radio' id='Author' name='option' onClick={()=>{type='A'}}></input>
                 <label htmlFor='Author'>Author</label>
