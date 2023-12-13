@@ -5,13 +5,15 @@ class Conference{
     Articles;
     Authors;
     Reviewers;
-    constructor(Id,Organizer,Name,Articles,Authors,Reviewers){
+    Date;
+    constructor(Id,Organizer,Name,Articles,Authors,Reviewers, Date){
         this.Id=Id;
         this.Organizer=Organizer;
         this.Name=Name;
         this.Articles=Articles;
         this.Authors=Authors;
         this.Reviewers=Reviewers;
+        this.Date=Date;
     }
     
     //AUTHORS
@@ -22,31 +24,44 @@ class Conference{
         this.Authors[AuthorId];
     }
     
+    
     //REVIEWER
-    addReviewer(Reviewer){
-        this.Reviewers.push(Reviewer);
+    addReviewer(Reviewer,UserP){
+        if(UserP==='O'){
+            this.Reviewers.push(Reviewer);
+        }
     }
-    getReviewer(ReviewerId){
-        return this.Reviewers[ReviewerId];
+    getReviewer(ReviewerId,UserP){
+        if(UserP==='O'){
+            return this.Reviewers[ReviewerId];
+        }
     }
 
     //REVIEWS
-    addReview(ArticleId, Review){
-        this.Articles[ArticleId].Reviews.push(Review);
+    addReview(ArticleId, Review, UserP){
+        if(UserP==='R'){
+            this.Articles[ArticleId].Reviews.push(Review);
+        }
     }
-    getReview(ArticleId,ReviewId){
+    getReview(ArticleId,ReviewId, UserP){
         return this.ArticleId[ArticleId].Reviews[ReviewId];
     }
-    deleteReview(ArticleId,ReviewId){
-        this.Articles[ArticleId].Reviews[ReviewId].remove();
+    deleteReview(ArticleId,ReviewId,UserP){
+        if(UserP==='R'||UserP==='O'){
+            this.Articles[ArticleId].Reviews[ReviewId].remove();
+        }
     }
-    editReview(ArticleId,ReviewId,content){
-        this.Articles[ArticleId].Reviews[ReviewId].editReviewContent(content);
+    editReview(ArticleId,ReviewId,content,UserP){
+        if(UserP==='R'||UserP==='O'){
+            this.Articles[ArticleId].Reviews[ReviewId].editReviewContent(content);
+        }
     }
 
     //ARTICLES
-    addArticle(Article){
-        this.Articles.push(Article)
+    addArticle(Article,UserP){
+        if(UserP==='A'){
+            this.Articles.push(Article)
+        }
     }
     getNrArticles(){
         return this.Articles.count();
@@ -54,29 +69,47 @@ class Conference{
     getArticles(){
         return this.Articles;
     }
-    deleteArticle(ArtId){
-        Articles[ArtId].remove();
+    deleteArticle(ArtId, UserP){
+        if(UserP==='A'){
+            Articles[ArtId].remove();
+        }
     }
-    editArticleTitle(ArtId, title){
-        Articles[ArtId].setTitle(title);
+    editArticleTitle(ArtId, title, UserP){
+        if(UserP==='A'){
+            Articles[ArtId].setTitle(title);
+        }
     }
-    editArticleContent(ArtId,content){
-        Articles[ArtId].setContent(content);
+    editArticleContent(ArtId,content,UserP){
+        if(UserP==='A'){
+            Articles[ArtId].setContent(content);
+        }
     }
-    approveArticle(ArtId,Approved){
-        Articles[ArtId].setApproved(Approved);
+    approveArticle(ArtId){
+        Articles[ArtId].setApproved(true);
         Articles[ArtId].setUnderReview(false);
     }
-    denyArticle(ArtId,Approved){
-        Articles[ArtId].setApproved(Approved);
+    denyArticle(ArtId){
+        Articles[ArtId].setApproved(false);
         Articles[ArtId].setUnderReview(false);
     }
 
-
-    /*
-    addConference(Id,Organizer,Name,Articles,Authors,Reviewers){
-        conf = new Conference(Id,Organizer,Name,Articles,Authors,Reviewers);
-        return conf;
+    //STATUSES
+    getArticlesStatuses(UserP){
+        if(UserP==='O'){
+            Statuses;
+            for(i in Conferences.length()){
+                Statuses.add(Conferences.Articles[i].getUnderReview());
+            }
+            return Statuses;
+        }
     }
-    */
+
+    //Return Object
+    getObject(){
+        return this;
+    }
+
+    
+    
+    
 }

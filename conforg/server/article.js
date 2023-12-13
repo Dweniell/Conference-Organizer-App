@@ -15,7 +15,7 @@ class Article{
         this.UnderReview=UnderReview;
         this.Approved=Approved;
     }
-
+    
     //Content
     setContent(Content){
         this.Content=Content;
