@@ -5,7 +5,7 @@ import './Review.css'
 function Review(){
     const nav = useNavigate()
     const handleClick = () =>{
-        nav('/main')
+        nav(-1)
     }
     return(
         <div className="Review">

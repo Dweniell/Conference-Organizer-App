@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function ConferenceCreator(){
     const nav = useNavigate()
     const handleClick = () =>{
-        nav('/main')
+        nav(-1)
     }
     return(
         <div className="CreateConference">

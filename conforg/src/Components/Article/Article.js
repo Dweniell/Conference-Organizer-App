@@ -5,7 +5,7 @@ import './Article.css'
 function Article(){
     const nav = useNavigate()
     const handleBut = () =>{
-        nav('/main')
+        nav(-1)
     }
     return(
         <div className='Article'>
