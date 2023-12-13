@@ -1,4 +1,4 @@
-import '../Login/Login.css';
+import '../Login/Login.css'; 
 import {React, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
@@ -17,7 +17,7 @@ function Register(){
             }
             else{
               axios.post('http://localhost:3001/registerUser', {user:regUser, pass:regPass, accType:type})
-              navig('/main')
+              handleClickBack()
             }
           })
     }

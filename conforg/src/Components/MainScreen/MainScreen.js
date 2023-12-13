@@ -1,11 +1,13 @@
-import React from 'react'
+import {React} from 'react'
 import './MainScreen.css'
 import logo from '../../logo_actual.png';
 import ConferenceTemplate from '../Conference/Conference'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function MainScreen(){
     const nav = useNavigate()
+    const location = useLocation()
+    let data = location.state
     const handleLogout = ()=>{
         nav('/')
     }
@@ -18,12 +20,13 @@ function MainScreen(){
     const handleReview = () =>{
         nav('/review')
     }
+    //let i = 1
     return(
         <div className='MainScreen'>
             <div className='TopScreen'>
                 <header className='Header'>
                     <img src={logo} className='MLogo' alt='logo'/>
-                    <h1 className='WelcomeText'>Welcome, user</h1>
+                    <h1 className='WelcomeText' >Welcome, {data.name}</h1>
                     <button type='button' className='LogoutBtn' onClick={handleLogout}>Logout</button>
                 </header>
             </div>

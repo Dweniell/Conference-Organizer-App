@@ -6,11 +6,12 @@ function Login(){
     const [checkUser, setUser] = useState('')
     const [checkPass, setPass] = useState('')
     const navig = useNavigate()
+    let data = {name: checkUser}
     const handleClickBack = () =>{
         navig(-1)
     }
     const handleContinue = () =>{
-        navig('/main')
+        navig('/main',{state:data})
     }
     
     const onFinish = () =>{

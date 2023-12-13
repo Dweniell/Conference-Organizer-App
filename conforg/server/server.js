@@ -32,6 +32,7 @@ app.post('/validatePassword',(req, res)=>{
         }
     })
 })
+
 app.post('/registerUser',(req,res)=>{
     const username = req.body.user
     const password = req.body.pass
