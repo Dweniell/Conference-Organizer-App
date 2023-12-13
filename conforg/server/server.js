@@ -3,7 +3,6 @@ const app = express()
 const cors = require('cors')
 const sqlite3 = require('sqlite3').verbose()
 
-
 app.use(cors())
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin',"*")
@@ -19,12 +18,12 @@ let db = new sqlite3.Database('auth.db', (err)=>{
 })
 
 app.post('/validatePassword',(req, res)=>{
-    const {username, password} = req.body
-
-    db.all(`select * from authentication where username='${username}' and password = '${password}'`,
+    const username = req.body.user
+    const password = req.body.pass
+    db.all(`select * from accounts where accUsername='${username}' and accPassword ='${password}'`,
     (err,rows)=>{
         if(err){
-            console.error(err.message)
+            res.send({err: err})
         }
         if(rows.length > 0){
             res.send({validation:true})
@@ -32,6 +31,15 @@ app.post('/validatePassword',(req, res)=>{
             res.send({validation: false})
         }
     })
+})
+app.post('/registerUser',(req,res)=>{
+    const username = req.body.user
+    const password = req.body.pass
+    const accType = req.body.accType
+    db.all(`INSERT INTO accounts(accUsername, accPassword, accType) VALUES ('${username}','${password}','${accType}');
+    COMMIT;`,
+    (err)=>{console.log(err)})
+    console.log('Added user')
 })
 app.listen(3001, ()=>console.log('Listening at port 3001'))
 //commented this, messes with the login system
