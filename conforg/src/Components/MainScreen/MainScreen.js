@@ -3,6 +3,7 @@ import './MainScreen.css'
 import logo from '../../logo_actual.png';
 import ConferenceTemplate from '../Conference/Conference'
 import { useNavigate, useLocation } from 'react-router-dom'
+import {User} from 'conforg/server/user.js';
 
 function MainScreen(){
     const nav = useNavigate()
@@ -20,13 +21,15 @@ function MainScreen(){
     const handleReview = () =>{
         nav('/review')
     }
+    let user = new User()
+    user=data.user
     //let i = 1
     return(
         <div className='MainScreen'>
             <div className='TopScreen'>
                 <header className='Header'>
                     <img src={logo} className='MLogo' alt='logo'/>
-                    <h1 className='WelcomeText' >Welcome, {data.name}</h1>
+                    <h1 className='WelcomeText' >Welcome, {user.Username}</h1>
                     <button type='button' className='LogoutBtn' onClick={handleLogout}>Logout</button>
                 </header>
             </div>
