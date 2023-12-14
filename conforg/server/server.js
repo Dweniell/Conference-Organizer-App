@@ -1,3 +1,9 @@
+//IMPORT Class Files
+import {Conference} from './conference.js';
+import {User} from './user.js';
+import {Article} from './article.js';
+import {Review} from './review.js';
+
 const express = require('express')
 const app = express()
 const cors = require('cors')

@@ -1,4 +1,4 @@
-class Article{
+export class Article{
     ArticleId=1;
     Title="This is a title"
     Content="This is a content"

@@ -1,4 +1,4 @@
-class Review{
+export class Review{
     ReviewId;
     ReviewContent;
     ReviewerId;

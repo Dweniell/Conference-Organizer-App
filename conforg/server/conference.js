@@ -1,4 +1,4 @@
-class Conference{
+export class Conference{
     Id;
     Name;
     Organizer;
