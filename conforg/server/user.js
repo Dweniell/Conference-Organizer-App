@@ -1,7 +1,6 @@
 export class User{
-    Id=1;
-    Name
-    Surname
+    Id;
+    Username
     Permission = {
         AUTHOR: 'A',
         REVIEWER: 'R',
@@ -9,10 +8,9 @@ export class User{
     }
     Password
 
-    constructor(Id, Name, Surname,Permission,Password){
+    constructor(Id,Username,Permission,Password){
         this.Id=Id;
-        this.Name=Name;
-        this.Surname=Surname;
+        this.Username=Username;
         this.Permission=Permission;
         this.Password=Password;
     }
