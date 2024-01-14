@@ -115,22 +115,18 @@ test2()
 
 
 
+app.listen(3001, ()=>console.log('Listening at port 3001'))
 
-
-app.get('/validatePassword', async (req, res, next)=>{
-    try{
-    const user = await Users.findAll({where: {username: req.body.user, password: req.body.pass}})
-    if (user){
-        res.status(200).json({validation:true}, user)
+app.get('/validatePassword/:username/:password', async (req, res, next)=>{
+    const users = await Users.findAll({where: {username: req.params.username, password: req.params.password}})
+    if (users.length>0){
+        res.json({validation:true})
         //res.send({validation:true, acc:{name:user.username, type:user.permission, index:user.id}})
     }
     else{
-        res.status(501).json({validation: false})
+        res.json({validation: false})
     }
-    }
-    catch (error){
-        next(error)
-    }
+    
 })
     
 
@@ -146,7 +142,7 @@ app.post('/registerUser',(req,res)=>{
     (err)=>{console.log(err)})
     console.log('Added user')
 })
-app.listen(3001, ()=>console.log('Listening at port 3001'))
+
 //commented this, messes with the login system
 /*app.post('/create-conference', checkRole('organizer'), (req, res) => {
     const { id, name, organizer } = req.body;

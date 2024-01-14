@@ -16,28 +16,15 @@ function Login(){
     
     const onFinish = () =>{
 
-        axios.get('http://localhost:3001/validatePassword', {user:checkUser,pass:checkPass})
+        axios.get(`http://localhost:3001/validatePassword/${checkUser}/${checkPass}`)
           .then(res=>{
             if(res.data.validation){
-              console.log(res.data.user)
+              console.log('Exists!')
               handleContinue()
+
             }
             else{
               alert('Invalid username or password')
-            }
-          })
-          .catch(error => {
-            // Handle error
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.error('Response error:', error.response.data);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.error('No response received:', error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.error('Error setting up the request:', error.message);
             }
           })
     }
