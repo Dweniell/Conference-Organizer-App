@@ -10,18 +10,15 @@ function Login(){
     const handleClickBack = () =>{
         navig(-1)
     }
-    const handleContinue = () =>{
-        navig('/main')
-    }
     
     const onFinish = () =>{
 
         axios.get(`http://localhost:3001/validatePassword/${checkUser}/${checkPass}`)
           .then(res=>{
+            let user = res.data.userdata
             if(res.data.validation){
               console.log('Exists!')
-              handleContinue()
-
+              navig('/main',{state:user})
             }
             else{
               alert('Invalid username or password')

@@ -179,7 +179,7 @@ test2()
 app.get('/validatePassword/:username/:password', async (req, res, next)=>{
     const users = await Users.findAll({where: {username: req.params.username, password: req.params.password}})
     if (users.length>0){
-        res.json({validation:true})
+        res.json({validation:true, userdata:users[0]})
         //res.send({validation:true, acc:{name:user.username, type:user.permission, index:user.id}})
     }
     else{

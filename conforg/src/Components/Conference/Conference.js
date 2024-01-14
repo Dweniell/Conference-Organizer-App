@@ -1,10 +1,11 @@
 import React from 'react'
 import './Conference.css'
-function ConferenceTemplate(){
+function ConferenceTemplate({prop}){
+
     return(
         <div className='Conf' tabIndex={1}>
             <div className='ConfName'>
-                <p>Conference name</p>
+                <p>Conference {prop}</p>
             </div>
             <div className='ConfDate'>
                 <p>Date: 00/00/0000</p>
