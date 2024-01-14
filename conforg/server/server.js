@@ -81,8 +81,10 @@ const Articles = sequelize.define('Articles',{
     },
     approved:{
         type:DataTypes.BOOLEAN
+    },
+    conferenceId:{
+        type:DataTypes.INTEGER
     }
-
 })
 
 const Reviews=sequelize.define('Review',{
@@ -146,7 +148,6 @@ const ConferenceUsers=sequelize.define('Conference-User',{
     //     }
     // }
 })
-
 Articles.belongsToMany(Reviews,{through:ReviewArticles})
 Reviews.belongsToMany(Articles,{through:ReviewArticles})
 Conferences.belongsToMany(Users,{through:ConferenceUsers})
@@ -199,5 +200,10 @@ app.post('/createConference/:confname/:confdate',async (req,res)=>{
     console.log(conf)
     res.json({validation:true})
 })
+app.post('/createArticle/:artname/:artcontent',async (req,res)=>{
 
+    const art = await Articles.create({title:req.params.artname, content:req.params.artcontent,authorId: 0})
+    console.log(art)
+    res.json({validation:true})
+})
 app.listen(3001, ()=>console.log('Listening at port 3001'))
