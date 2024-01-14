@@ -6,8 +6,7 @@
 
 const express = require('express')
 const app = express()
-const cors = require('cors')
-const sqlite3 = require('sqlite3').verbose()
+
 const {Sequelize,DataTypes} = require('sequelize')
 
 const sequelize = new Sequelize({
@@ -42,8 +41,14 @@ permission:{
 })
 sequelize.sync({ alter: true })
 
-
-
+const cors = require('cors')
+const sqlite3 = require('sqlite3').verbose()
+app.use(cors())
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin',"*")
+    next()
+})
+app.use(express.json())
 
 async function test(){
 const jane = await Users.create({username:"Jon",password:"does",permission:"O"})
@@ -58,12 +63,7 @@ console.log("All users:", JSON.stringify(users));
 }
 test2()
 
-// app.use(cors())
-// app.use((req,res,next)=>{
-//     res.setHeader('Access-Control-Allow-Origin',"*")
-//     next()
-// })
-// app.use(express.json())
+
 
 // let db = new sqlite3.Database('auth.db', (err)=>{
 //     if(err){
@@ -73,7 +73,7 @@ test2()
 // })
 
 
-// //userArray
+//userArray
 // let userArray=[]
 // let alphabet=[]
 // let user = new User(1,'asdf','asdfadf','O')
@@ -103,67 +103,58 @@ test2()
 
 // console.log(userArray[3])
 
-// // functio=()=>{
-// //     for(let i=0;i<alphabet.length;i++){
-// //         console.log(alphabet[i])
+// functio=()=>{
+//     for(let i=0;i<alphabet.length;i++){
+//         console.log(alphabet[i])
         
-// //     }
-// // }
+//     }
+// }
 
-// // functio();
-
-
+// functio();
 
 
 
 
-// app.post('/validatePassword',(req, res)=>{
-//     const username = req.body.user
-//     const password = req.body.pass
-//     db.all(`select * from accounts where accUsername='${username}' and accPassword ='${password}'`,
-//     (err,rows)=>{
-//         if(err){
-//             res.send({err: err})
-//         }
-//         if(rows.length > 0){
-//             res.send({validation:true, acc:{name:rows.accUsername, type:rows.accType, index:rows.accIndex}})
-//         }else{
-//             res.send({validation: false})
-//         }
-//     })
-//    /*
-//     db.all(`select * from accounts`,
-//     (err,rows)=>{
-//         if(err){
-//             res.send({err: err})
-//         }
-//         if(rows.length > 0){
-//             res.send({validation:true})
-//         }else{
-//             res.send({validation: true})
-//         }
-//     })*/
+
+
+app.get('/validatePassword', async (req, res, next)=>{
+    try{
+    const user = await Users.findAll({where: {username: req.body.user, password: req.body.pass}})
+    if (user){
+        res.status(200).json({validation:true}, user)
+        //res.send({validation:true, acc:{name:user.username, type:user.permission, index:user.id}})
+    }
+    else{
+        res.status(501).json({validation: false})
+    }
+    }
+    catch (error){
+        next(error)
+    }
+})
     
-// })
 
-// app.post('/registerUser',(req,res)=>{
-//     const username = req.body.user
-//     const password = req.body.pass
-//     const accType = req.body.accType
-//     db.all(`INSERT INTO accounts(accUsername, accPassword, accType) VALUES ('${username}','${password}','${accType}');
-//     COMMIT;`,
-//     (err)=>{console.log(err)})
-//     console.log('Added user')
-// })
-// app.listen(3001, ()=>console.log('Listening at port 3001'))
-// //commented this, messes with the login system
-// /*app.post('/create-conference', checkRole('organizer'), (req, res) => {
-//     const { id, name, organizer } = req.body;
+/*
+    
 
-//     const newConference = new Conference(id, name, organizer);
+app.post('/registerUser',(req,res)=>{
+    const username = req.body.user
+    const password = req.body.pass
+    const accType = req.body.accType
+    db.all(`INSERT INTO accounts(accUsername, accPassword, accType) VALUES ('${username}','${password}','${accType}');
+    COMMIT;`,
+    (err)=>{console.log(err)})
+    console.log('Added user')
+})
+app.listen(3001, ()=>console.log('Listening at port 3001'))
+//commented this, messes with the login system
+/*app.post('/create-conference', checkRole('organizer'), (req, res) => {
+    const { id, name, organizer } = req.body;
 
-//     res.status(201).send({ message: "Conference created successfully", conference: newConference });
-// });*/
+    const newConference = new Conference(id, name, organizer);
+
+    res.status(201).send({ message: "Conference created successfully", conference: newConference });
+});*/
 
 // app.post('/conference/:conferenceId/add-author', (req, res) => {
 //     const conferenceId = req.params.conferenceId;

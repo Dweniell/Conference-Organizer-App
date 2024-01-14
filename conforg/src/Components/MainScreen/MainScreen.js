@@ -7,21 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 function MainScreen(){
 
-    const [type,setType]=useState('user')
-
     const location = useLocation()
-    let data = location.state
-    useEffect(()=>{
-        if(data.type==='O'){
-            setType('organizer')
-        }
-        if(data.type==='A'){
-            setType('author')
-        }
-        if(data.type==='R'){
-            setType('reviewer')
-        }
-    },[])
     const nav = useNavigate()
     const handleLogout = ()=>{
         nav('/')
@@ -44,7 +30,7 @@ function MainScreen(){
             <div className='TopScreen'>
                 <header className='Header'>
                     <img src={logo} className='MLogo' alt='logo'/>
-                    <h1 className='WelcomeText' >Welcome, {type} {data.name}</h1>
+                    <h1 className='WelcomeText' >Welcome</h1>
                     <button type='button' className='LogoutBtn' onClick={handleLogout}>Logout</button>
                 </header>
             </div>
