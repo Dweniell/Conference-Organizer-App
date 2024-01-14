@@ -7,7 +7,7 @@
 const express = require('express')
 const app = express()
 
-const {Sequelize,DataTypes} = require('sequelize')
+const {Sequelize,DataTypes, json} = require('sequelize')
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -18,7 +18,7 @@ id:{
     type:DataTypes.INTEGER,
     autoIncrement:true,
     primaryKey:true,
-    defaultValue:0
+    
 },
 username:{
 type:DataTypes.STRING,
@@ -39,118 +39,118 @@ permission:{
 
 
 })
-// const Conferences =sequelize.define('Conference',{
-//     id:{
-//         type:DataTypes.INTEGER,
-//         autoIncrement:true,
-//         primaryKey:true,
-//         defaultValue:0
-//     },
-//     name:{
-//     type:DataTypes.STRING,
-//     allowNull:false,
-//     unique:true
-//     },
-//     date:{
-//     type:DataTypes.DATE,
-//     allowNull:false
-//     }
-// })
+const Conferences =sequelize.define('Conference',{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+        
+    },
+    name:{
+    type:DataTypes.STRING,
+    allowNull:false,
+    unique:true
+    },
+    date:{
+    type:DataTypes.DATE,
+    allowNull:false
+    }
+})
 
-// const Articles = sequelize.define('Articles',{
-//     id:{
-//         type:DataTypes.INTEGER,
-//         autoIncrement:true,
-//         primaryKey:true,
-//         defaultValue:0
-//     },
-//     title:{
-//         type:DataTypes.STRING,
-//         allowNull:false,
-//         unique:true
+const Articles = sequelize.define('Articles',{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+        defaultValue:0
+    },
+    title:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        unique:true
     
     
-//     },
-//     content:{
-//         type:DataTypes.TEXT('medium')
-//     },
-//     authorId:{
-//         type:DataTypes.INTEGER,
-//         allowNull:false
+    },
+    content:{
+        type:DataTypes.TEXT('medium')
+    },
+    authorId:{
+        type:DataTypes.INTEGER,
+        allowNull:false
     
-//     },
-//     approved:{
-//         type:DataTypes.BOOLEAN
-//     }
+    },
+    approved:{
+        type:DataTypes.BOOLEAN
+    }
 
-// })
+})
 
-// const Reviews=sequelize.define('Review',{
-//     id:{
-//         type:DataTypes.INTEGER,
-//         autoIncrement:true,
-//         allowNull:false,
-//         primaryKey:true
-//     },
-//     reviewContent:{
-//         type:DataTypes.STRING
-//     },
-//     reviewAuthor:{
-//         type:DataTypes.INTEGER
-//     },
-//     articleApproved:{
-//         type:DataTypes.BOOLEAN
-//     }
-// })
+const Reviews=sequelize.define('Review',{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
+    },
+    reviewContent:{
+        type:DataTypes.STRING
+    },
+    reviewAuthor:{
+        type:DataTypes.INTEGER
+    },
+    articleApproved:{
+        type:DataTypes.BOOLEAN
+    }
+})
 
-// const ReviewArticles=sequelize.define('ReviewArticles',{
-//     id:{
-//         type:DataTypes.INTEGER,
-//         autoIncrement:true,
-//         primaryKey:true
-//     },
+const ReviewArticles=sequelize.define('ReviewArticles',{
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true
+    }
     
-//     articleId:{
-//         type:DataTypes.INTEGER,
-//         refernces:{
-//             model:Articles,
-//             key:'id'
-//         }
-//     },
-//     reviewId:{
-//         type:DataTypes.INTEGER,
-//         refernces:{
-//             model:Reviews,
-//             key:'id'
-//         }
-//     }
-// })
+    // articleId:{
+    //     type:DataTypes.INTEGER,
+    //     refernces:{
+    //         model:Articles,
+    //         key:'id'
+    //     }
+    // },
+    // reviewId:{
+    //     type:DataTypes.INTEGER,
+    //     refernces:{
+    //         model:Reviews,
+    //         key:'id'
+    //     }
+    // }
+})
 
-// const ConferenceUsers=sequelize.define('Conference-User',{
-//     id:{
-//         type:DataTypes.INTEGER,
-//         primaryKey:true
-//     },
-//     conferenceId:{
-//         type:DataTypes.INTEGER,
-//         refernces:{
-//             model:Conferences,
-//             key:'id'
-//         }
-//     },
-//     userId:{
-//         type:DataTypes.INTEGER,
-//         refernces:{
-//             model:Users,
-//             key:'id'
-//         }
-//     }
-// })
+const ConferenceUsers=sequelize.define('Conference-User',{
+    id:{
+        type:DataTypes.INTEGER,
+        primaryKey:true
+    }
+    // conferenceId:{
+    //     type:DataTypes.INTEGER,
+    //     refernces:{
+    //         model:Conferences,
+    //         key:'id'
+    //     }
+    // },
+    // userId:{
+    //     type:DataTypes.INTEGER,
+    //     refernces:{
+    //         model:Users,
+    //         key:'id'
+    //     }
+    // }
+})
 
-// Articles.belongsToMany(Reviews,{through:ReviewArticles})
-// Reviews.belongsToMany(Articles,{through:ReviewArticles})
-// Conferences.belongsToMany(Users,{through:ConferenceUsers})
-// Users.belongsToMany(Conferences,{through:ConferenceUsers})
+Articles.belongsToMany(Reviews,{through:ReviewArticles})
+Reviews.belongsToMany(Articles,{through:ReviewArticles})
+Conferences.belongsToMany(Users,{through:ConferenceUsers})
+Users.belongsToMany(Conferences,{through:ConferenceUsers})
 
 sequelize.sync({ alter: true })
 
@@ -171,11 +171,10 @@ console.log(jane)
 //test()
 async function test2(){
 const users =await Users.findByPk(0)
-console.log(users instanceof Users);
-console.log("All users:", JSON.stringify(users));
+console.log(users instanceof Users)
+console.log("All users:", JSON.stringify(users))
 }
 test2()
-
 
 app.get('/validatePassword/:username/:password', async (req, res, next)=>{
     const users = await Users.findAll({where: {username: req.params.username, password: req.params.password}})
@@ -192,6 +191,13 @@ app.get('/validatePassword/:username/:password', async (req, res, next)=>{
 app.post('/registerUser/:username/:password/:accountType',async (req,res)=>{
 
     const users = await Users.create({username:req.params.username, password:req.params.password,permission:req.params.accountType})
-   
+    res.json({validation:true})
 })
+app.post('/createConference/:confname/:confdate',async (req,res)=>{
+
+    const conf = await Conferences.create({name:req.params.confname, date:req.params.confdate})
+    console.log(conf)
+    res.json({validation:true})
+})
+
 app.listen(3001, ()=>console.log('Listening at port 3001'))
