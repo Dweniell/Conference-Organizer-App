@@ -2,16 +2,16 @@ import './Login.css';
 import {React, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+//import '../../../server/user.js'
 function Login(){
     const [checkUser, setUser] = useState('')
     const [checkPass, setPass] = useState('')
     const navig = useNavigate()
-    let data = {name: checkUser}
     const handleClickBack = () =>{
         navig(-1)
     }
-    const handleContinue = () =>{
-        navig('/main',{state:data})
+    const handleContinue = (accdata) =>{
+        navig('/main',{state:accdata})
     }
     
     const onFinish = () =>{
@@ -19,7 +19,8 @@ function Login(){
         axios.post('http://localhost:3001/validatePassword', {user:checkUser,pass:checkPass})
           .then(res=>{
             if(res.data.validation){
-              handleContinue()
+              console.log(res.data.acc.name)
+              handleContinue(res.data.acc)
             }
             else{
               alert('Invalid username or password')

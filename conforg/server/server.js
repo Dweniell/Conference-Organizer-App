@@ -48,6 +48,8 @@ db.all('select * from accounts',(err,rows)=>{
             console.log(userArray[i])
             i++            
         })
+
+
         
         console.log(userArray[3])
     }
@@ -79,12 +81,12 @@ app.post('/validatePassword',(req, res)=>{
             res.send({err: err})
         }
         if(rows.length > 0){
-            res.send({validation:true})
+            res.send({validation:true, acc:{name:rows.accUsername, type:rows.accType, index:rows.accIndex}})
         }else{
             res.send({validation: false})
         }
     })
-
+   /*
     db.all(`select * from accounts`,
     (err,rows)=>{
         if(err){
@@ -95,7 +97,7 @@ app.post('/validatePassword',(req, res)=>{
         }else{
             res.send({validation: true})
         }
-    })
+    })*/
     
 })
 
