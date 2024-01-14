@@ -11,7 +11,7 @@ function Register(){
         navig(-1)
     }
     const handleClickCont = () => {
-      axios.post('http://localhost:3001/validatePassword', {user:regUser,pass:regPass})
+      axios.get(`http://localhost:3001/validatePassword/${regUser}/${regPass}`)
           .then(res=>{
             if(res.data.validation){
               alert('Username already exists')
@@ -20,7 +20,7 @@ function Register(){
               if(regPass!==regRepass){alert('Password does not match')}
               else if(type==='Z'){alert('Please choose an account type')}
               else{
-                axios.post('http://localhost:3001/registerUser', {user:regUser, pass:regPass, accType:type})
+                axios.post(`http://localhost:3001/registerUser/${regUser}/${regPass}/${type}`)
                 handleClickBack()
               }
             }

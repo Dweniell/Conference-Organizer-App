@@ -39,6 +39,119 @@ permission:{
 
 
 })
+// const Conferences =sequelize.define('Conference',{
+//     id:{
+//         type:DataTypes.INTEGER,
+//         autoIncrement:true,
+//         primaryKey:true,
+//         defaultValue:0
+//     },
+//     name:{
+//     type:DataTypes.STRING,
+//     allowNull:false,
+//     unique:true
+//     },
+//     date:{
+//     type:DataTypes.DATE,
+//     allowNull:false
+//     }
+// })
+
+// const Articles = sequelize.define('Articles',{
+//     id:{
+//         type:DataTypes.INTEGER,
+//         autoIncrement:true,
+//         primaryKey:true,
+//         defaultValue:0
+//     },
+//     title:{
+//         type:DataTypes.STRING,
+//         allowNull:false,
+//         unique:true
+    
+    
+//     },
+//     content:{
+//         type:DataTypes.TEXT('medium')
+//     },
+//     authorId:{
+//         type:DataTypes.INTEGER,
+//         allowNull:false
+    
+//     },
+//     approved:{
+//         type:DataTypes.BOOLEAN
+//     }
+
+// })
+
+// const Reviews=sequelize.define('Review',{
+//     id:{
+//         type:DataTypes.INTEGER,
+//         autoIncrement:true,
+//         allowNull:false,
+//         primaryKey:true
+//     },
+//     reviewContent:{
+//         type:DataTypes.STRING
+//     },
+//     reviewAuthor:{
+//         type:DataTypes.INTEGER
+//     },
+//     articleApproved:{
+//         type:DataTypes.BOOLEAN
+//     }
+// })
+
+// const ReviewArticles=sequelize.define('ReviewArticles',{
+//     id:{
+//         type:DataTypes.INTEGER,
+//         autoIncrement:true,
+//         primaryKey:true
+//     },
+    
+//     articleId:{
+//         type:DataTypes.INTEGER,
+//         refernces:{
+//             model:Articles,
+//             key:'id'
+//         }
+//     },
+//     reviewId:{
+//         type:DataTypes.INTEGER,
+//         refernces:{
+//             model:Reviews,
+//             key:'id'
+//         }
+//     }
+// })
+
+// const ConferenceUsers=sequelize.define('Conference-User',{
+//     id:{
+//         type:DataTypes.INTEGER,
+//         primaryKey:true
+//     },
+//     conferenceId:{
+//         type:DataTypes.INTEGER,
+//         refernces:{
+//             model:Conferences,
+//             key:'id'
+//         }
+//     },
+//     userId:{
+//         type:DataTypes.INTEGER,
+//         refernces:{
+//             model:Users,
+//             key:'id'
+//         }
+//     }
+// })
+
+// Articles.belongsToMany(Reviews,{through:ReviewArticles})
+// Reviews.belongsToMany(Articles,{through:ReviewArticles})
+// Conferences.belongsToMany(Users,{through:ConferenceUsers})
+// Users.belongsToMany(Conferences,{through:ConferenceUsers})
+
 sequelize.sync({ alter: true })
 
 const cors = require('cors')
@@ -64,59 +177,6 @@ console.log("All users:", JSON.stringify(users));
 test2()
 
 
-
-// let db = new sqlite3.Database('auth.db', (err)=>{
-//     if(err){
-//         console.error(err.message)
-//     }
-//     console.log('Connected to the access db.')
-// })
-
-
-//userArray
-// let userArray=[]
-// let alphabet=[]
-// let user = new User(1,'asdf','asdfadf','O')
-
-// db.all('select * from accounts',(err,rows)=>{
-//     if(err){
-//         console.log(err)
-//     }
-//     else{
-//         let i=0
-//         rows.forEach(function(row)
-//         {
-//             //console.log(userArray.length)
-//             user.setUser(row.accIndex,row.accUsername,row.accPassword,row.accType)
-//             userArray.push(user)
-//             alphabet.push({letter:"a"})
-//             console.log(userArray[i])
-//             i++            
-//         })
-
-
-        
-//         console.log(userArray[3])
-//     }
-// }
-// );
-
-// console.log(userArray[3])
-
-// functio=()=>{
-//     for(let i=0;i<alphabet.length;i++){
-//         console.log(alphabet[i])
-        
-//     }
-// }
-
-// functio();
-
-
-
-
-app.listen(3001, ()=>console.log('Listening at port 3001'))
-
 app.get('/validatePassword/:username/:password', async (req, res, next)=>{
     const users = await Users.findAll({where: {username: req.params.username, password: req.params.password}})
     if (users.length>0){
@@ -129,49 +189,9 @@ app.get('/validatePassword/:username/:password', async (req, res, next)=>{
     
 })
     
+app.post('/registerUser/:username/:password/:accountType',async (req,res)=>{
 
-/*
-    
-
-app.post('/registerUser',(req,res)=>{
-    const username = req.body.user
-    const password = req.body.pass
-    const accType = req.body.accType
-    db.all(`INSERT INTO accounts(accUsername, accPassword, accType) VALUES ('${username}','${password}','${accType}');
-    COMMIT;`,
-    (err)=>{console.log(err)})
-    console.log('Added user')
+    const users = await Users.create({username:req.params.username, password:req.params.password,permission:req.params.accountType})
+   
 })
-
-//commented this, messes with the login system
-/*app.post('/create-conference', checkRole('organizer'), (req, res) => {
-    const { id, name, organizer } = req.body;
-
-    const newConference = new Conference(id, name, organizer);
-
-    res.status(201).send({ message: "Conference created successfully", conference: newConference });
-});*/
-
-// app.post('/conference/:conferenceId/add-author', (req, res) => {
-//     const conferenceId = req.params.conferenceId;
-
-//     const author = req.body.author;
-
-//     const conference = getConferenceById(conferenceId);
-
-//     conference.addAuthor(author);
-
-//     res.status(200).send({ message: "Author added successfully", conference });
-// });
-
-// app.put('/conference/:conferenceId/update', (req, res) => {
-//     const conferenceId = req.params.conferenceId;
-
-//     const { newName } = req.body;
-
-//     const conference = getConferenceById(conferenceId);
-    
-//     conference.updateConferenceDetails(newName);
-
-//     res.status(200).send({ message: "Conference updated successfully", conference });
-// });
+app.listen(3001, ()=>console.log('Listening at port 3001'))
