@@ -62,7 +62,6 @@ const Articles = sequelize.define('Articles',{
         type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true,
-        defaultValue:0
     },
     title:{
         type:DataTypes.STRING,
@@ -199,10 +198,11 @@ app.post('/createConference/:confname/:confdate',async (req,res)=>{
     const conf = await Conferences.create({name:req.params.confname, date:req.params.confdate})
     console.log(conf)
     res.json({validation:true})
-})
-app.post('/createArticle/:artname/:artcontent',async (req,res)=>{
 
-    const art = await Articles.create({title:req.params.artname, content:req.params.artcontent,authorId: 0})
+})
+app.post('/createArticle/:artname/:artcontent/:id',async (req,res)=>{
+
+    const art = await Articles.create({title:req.params.artname, content:req.params.artcontent,authorId: req.params.id})
     console.log(art)
     res.json({validation:true})
 })

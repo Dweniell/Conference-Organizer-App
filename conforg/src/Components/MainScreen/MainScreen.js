@@ -22,7 +22,7 @@ function MainScreen(){
         }
     }
     const handleArticle = () =>{
-        nav('/article')
+        nav('/article', {state: user})
     }
     const handleReview = () =>{
         if(user.permission==='R'){
