@@ -164,17 +164,17 @@ app.use((req,res,next)=>{
 app.use(express.json())
 
 async function test(){
-const jane = await Users.create({username:"Jon",password:"does",permission:"O"})
+const conf = await Conferences.findAll()
 
-console.log(jane)
+console.log(conf)
 }
-//test()
+test()
 async function test2(){
 const users =await Users.findByPk(0)
 console.log(users instanceof Users)
 console.log("All users:", JSON.stringify(users))
 }
-test2()
+//test2()
 
 app.get('/validatePassword/:username/:password', async (req, res, next)=>{
     const users = await Users.findAll({where: {username: req.params.username, password: req.params.password}})
@@ -191,13 +191,12 @@ app.get('/validatePassword/:username/:password', async (req, res, next)=>{
 app.post('/registerUser/:username/:password/:accountType',async (req,res)=>{
 
     const users = await Users.create({username:req.params.username, password:req.params.password,permission:req.params.accountType})
-    res.json({validation:true})
+    console.log(users)
 })
 app.post('/createConference/:confname/:confdate',async (req,res)=>{
 
     const conf = await Conferences.create({name:req.params.confname, date:req.params.confdate})
     console.log(conf)
-    res.json({validation:true})
 
 })
 app.post('/createArticle/:artname/:artcontent/:id',async (req,res)=>{
@@ -205,5 +204,19 @@ app.post('/createArticle/:artname/:artcontent/:id',async (req,res)=>{
     const art = await Articles.create({title:req.params.artname, content:req.params.artcontent,authorId: req.params.id})
     console.log(art)
     res.json({validation:true})
+})
+app.get('/getConfData/:id', async(req, res)=>{
+    const conference = await Conferences.findAll(
+        {
+        where:
+        {
+            id: req.params.id
+        }
+    })
+    if(conference.length > 0){
+        console.log(conference)
+        res.json({validation: true, conf: conference[0]})
+    }
+    else res.json({validation: false})
 })
 app.listen(3001, ()=>console.log('Listening at port 3001'))

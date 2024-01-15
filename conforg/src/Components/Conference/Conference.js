@@ -1,14 +1,32 @@
-import React from 'react'
+import {React, useState} from 'react'
 import './Conference.css'
-function ConferenceTemplate({prop}){
+import axios from 'axios'
 
+function ConferenceTemplate({prop}){
+    const [confName, setName] = useState('Conference example')
+    const [confDate, setDate] = useState(new Date())
+    const getNameAndDate = () =>{
+        axios.get(`http://localhost:3001/getConfData/${prop}`)
+        .then(res=>{
+            if(res.data.validation){
+                setName(res.data.conf.name)
+                setDate(res.data.conf.date)
+            }
+            else{
+                setName('Conference example')
+                setDate(new Date())
+            }
+        })
+        
+    }
+    setTimeout(getNameAndDate, 10)
     return(
         <div className='Conf' tabIndex={1}>
             <div className='ConfName'>
-                <p>Conference {prop}</p>
+                <p>{prop} {confName}</p>
             </div>
             <div className='ConfDate'>
-                <p>Date: 00/00/0000</p>
+                <p>Date: {confDate.toDateString}</p>
             </div>
             <div className='Articles'>
                 <ul className='ArticleList'>

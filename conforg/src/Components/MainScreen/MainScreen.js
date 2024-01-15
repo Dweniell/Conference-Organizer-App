@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 //import {User} from 'conforg/server/user.js';
 
 function MainScreen(){
-
+    const [indexer, setIndexer] = useState(0)
     const location = useLocation()
     const user = location.state
     const nav = useNavigate()
@@ -32,8 +32,6 @@ function MainScreen(){
             alert('Only reviewers can add reviews')
         }
     }
-    
-    let indexer = 0
     return(
         <div className='MainScreen'>
             <div className='TopScreen'>
@@ -45,11 +43,11 @@ function MainScreen(){
             </div>
             <div className='MidScreen'>
                 <ul className='Conferences'>
-                        <li className='ConferenceItem NextArticle' onClick={(indexer)=>{
+                        <li className='ConferenceItem NextArticle' onClick={()=>{
                             if(indexer>0){
-                                indexer--
+                                setIndexer(indexer-1)
                             }else if(indexer===0){
-                                indexer=0
+                                setIndexer(0)
                             }
                         }}>←</li>
                         <li className='ConferenceItem'>
@@ -61,7 +59,7 @@ function MainScreen(){
                         <li className='ConferenceItem'>
                             <ConferenceTemplate prop={indexer+2}/>
                         </li>
-                        <li className='ConferenceItem NextArticle' onClick={(indexer)=>{indexer++; console.log(indexer)}}>→</li>
+                        <li className='ConferenceItem NextArticle' onClick={()=>{setIndexer(indexer+1); console.log(indexer)}}>→</li>
                     </ul>
             </div>
             <div className='BottomScreen'>
