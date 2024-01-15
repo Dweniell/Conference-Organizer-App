@@ -19,7 +19,7 @@ function ConferenceTemplate({prop}){
         })
         
     }
-    setTimeout(getNameAndDate, 100)
+    getNameAndDate()
     return(
         <div className='Conf' tabIndex={1}>
             <div className='ConfName'>
