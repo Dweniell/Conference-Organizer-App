@@ -168,7 +168,7 @@ const conf = await Conferences.findAll()
 
 console.log(conf)
 }
-test()
+//test()
 async function test2(){
 const users =await Users.findByPk(0)
 console.log(users instanceof Users)
@@ -214,7 +214,6 @@ app.get('/getConfData/:id', async(req, res)=>{
         }
     })
     if(conference.length > 0){
-        console.log(conference)
         res.json({validation: true, conf: conference[0]})
     }
     else res.json({validation: false})
